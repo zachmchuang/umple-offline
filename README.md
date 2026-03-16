@@ -1,2 +1,2 @@
 # umple-offline
-CLI Umple editor; includes a real-time visualisation window.
+Umple editor plugin for Vim; includes a real-time visualisation window.
