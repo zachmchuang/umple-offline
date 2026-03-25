@@ -41,7 +41,7 @@ vim.api.nvim_create_user_command(
 
 
 
--- make visualisation window for compiled diagram
+-- make visualisation happen for compiled diagram
 -- (helper)
 function visualize(diagram_fname)
         vim.notify("Umple diagram generated. Opened using " .. PREVIEW_CMD, vim.log.levels.INFO)
