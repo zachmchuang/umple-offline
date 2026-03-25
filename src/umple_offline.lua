@@ -5,27 +5,41 @@
 -- 2026-03-25
 --]]--
 
--- get filename (current buffer)
-local fname = vim.api.nvim_buf_get_name(0)
-
 
 -- compile state machine
 vim.api.nvim_create_user_command(
     "UmpleStateMachine",
     function()
-    end.
+        -- current filename
+        local fname = vim.api.nvim_buf_get_name(0)
+        local output_name = os.tmpname() .. '.png'
+        vim.cmd("!umple -g GvStateDiagram " .. fname)
+        -- reconstruct generated diagram name
+        local diagram_fname = string.sub(fname, 0, -4) .. "gv"
+        vim.cmd("!dot -Tpng " .. diagram_fname .. " -Gsize=4,5\\! -Gdpi=1000 -Gratio=fill -o" ..  output_name)
+        visualize(output_name)
+    end,
     {}
 )
+
 -- compile class diagram
 vim.api.nvim_create_user_command(
     "UmpleClassDiagram",
     function()
-    end.
+        -- current filename
+        local fname = vim.api.nvim_buf_get_name(0)
+        local output_name = os.tmpname() .. '.png'
+        vim.cmd("!umple -g GvClassDiagram " .. fname)
+        local diagram_fname = string.sub(fname, 0, -5) .. "cd.gv"
+        vim.cmd("!dot -Tpng " .. diagram_fname .. " -Gsize=4,5\\! -Gdpi=1000 -Gratio=fill -o" ..  output_name)
+        visualize(output_name)
+    end,
     {}
 )
 
 
 -- make visualisation window for compiled diagram
+-- (helper)
 function visualize(diagram_fname)
         local term_buf = vim.api.nvim_create_buf(false, true)
         local enter_window = true
@@ -39,15 +53,11 @@ function visualize(diagram_fname)
             border = "rounded",
             title = "fzf"
         })
-        vim.fn.jobstart("chafa " .. digram_fname, {
+        vim.fn.jobstart("chafa " .. diagram_fname, {
             term = true,
             on_exit = function()
                 vim.cmd(":q"); --auto exit when process terminates
             end,
         })
         vim.cmd "startinsert"
-    end,
-    {}
-
-    )
-
+end
