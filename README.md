@@ -1,5 +1,5 @@
 # umple-offline
-Umple editor plugin for Vim; allows for keybound compilation of `.ump` files into tmpfile diagrams for instantaneous visualisation.
+Umple visualisation plugin for Vim; allows for keybound compilation of `.ump` files into tmpfile diagrams for instantaneous visualisation in external viewer.
 
 ## Dependencies
 - A way to view images, which you should specify as the value of `src/umple_offline.lua.PREVIEW_CMD`. Default is MacOS's Preview (_`open` command_).
