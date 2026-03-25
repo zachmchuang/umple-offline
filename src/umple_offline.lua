@@ -18,7 +18,7 @@ vim.api.nvim_create_user_command(
         vim.cmd("silent !umple -g GvStateDiagram " .. fname)
         -- reconstruct generated diagram name
         local diagram_fname = string.sub(fname, 0, -4) .. "gv"
-        vim.cmd("silent !dot -Tpng " .. diagram_fname .. " -Gsize=4,5\\! -Gdpi=1000 -Gratio=fill -o" ..  output_name)
+        vim.cmd("silent !dot -Tpng " .. diagram_fname .. " -Gdpi=1000 -Gratio=fill -o" ..  output_name)
         visualize(output_name)
     end,
     {}
